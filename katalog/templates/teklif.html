@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Üretim Teklifi Al | Avşar Emprime{% endblock %}
+
+{% block ekstra_css %}
+<style>
+    .form-container {
+        max-width: 600px;
+        background: white;
+        margin: 50px auto;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        font-weight: 800;
+        margin-bottom: 30px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 2px solid #ecf0f1;
+        border-radius: 8px;
+        box-sizing: border-box;
+        transition: 0.3s;
+        font-family: inherit;
+    }
+
+    .form-input:focus {
+        border-color: #3498db;
+        outline: none;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background: #2c3e50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background: #34495e;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>🚀 Üretim İçin Teklif Al</h2>
+
+    <form method="post" enctype="multipart/form-data" onsubmit="yukleniyorAnimasyonu()">
+        {% csrf_token %}
+        <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">Adınız Soyadınız:</p>
+        {{ form.ad_soyad }}
+        <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">E-posta Adresiniz:</p>
+        {{ form.email }}
+        <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">Telefon Numaranız:</p>
+        {{ form.telefon }}
+        <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">Ürün Türü:</p>
+        {{ form.urun_turu }}
+        <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">Tahmini Adet:</p>
+        {{ form.adet }}
+        <p style="font-weight: bold; color: #e74c3c; margin-bottom: 10px;">Tasarım Dosyası Yükle (Logo / Vektör):</p>
+        {{ form.tasarim }}
+        <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">Ek Notlar:</p>
+        {{ form.notlar }}
+
+        <button type="submit" id="gonderBtn" class="submit-btn">Teklif Talebini Gönder</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block ekstra_js %}
+<script>
+    // Butona basıldığı an çalışacak sihirli animasyon
+    function yukleniyorAnimasyonu() {
+        var btn = document.getElementById("gonderBtn");
+        btn.innerHTML = "⏳ Dosya Yükleniyor... Lütfen Bekleyin";
+        btn.style.backgroundColor = "#95a5a6";
+        btn.style.cursor = "not-allowed";
+    }
+</script>
+{% endblock %}

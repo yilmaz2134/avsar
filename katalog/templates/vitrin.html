@@ -1,0 +1,305 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ana Sayfa | Avşar Emprime{% endblock %}
+
+{% block ekstra_css %}
+<style>
+    /* 1. Sayfa Kaydırma Efekti (Yeni eklendi) */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* 1. Karanlığı Dağıtan Hafif Arka Plan */
+    body {
+        background-color: #f1f5f9;
+    }
+
+    .main-wrapper {
+        color: #1e293b;
+        /* Yazı rengi koyu lacivert (siyah değil) */
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 20px;
+    }
+
+    /* 2. Hero Bölümü: Görsel Arka Planlı ve Karizmatik */
+    .hero {
+        padding: 150px 20px;
+        text-align: center;
+
+        /* JPG yerine PNG olarak güncelledik */
+        background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
+            url("/static/img/hero-bg.png");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+        border-bottom: 4px solid #3b82f6;
+        position: relative;
+    }
+
+    .hero h1 {
+        font-size: 3.5em;
+        font-weight: 900;
+        color: #fff;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+    }
+
+    .hero p {
+        color: #94a3b8;
+        font-size: 1.2em;
+        max-width: 700px;
+        margin: 0 auto 40px;
+    }
+
+    /* 3. Buton: Canlı Mavi */
+    .hero-btn {
+        display: inline-block;
+        padding: 15px 40px;
+        background: #3b82f6;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 50px;
+        font-size: 1em;
+        transition: all 0.3s;
+        box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+    }
+
+    .hero-btn:hover {
+        background: #2563eb;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    }
+
+    /* 4. Bölüm Başlıkları: Mavi Detaylı */
+    .bolum-baslik {
+        text-align: center;
+        font-size: 2.2em;
+        margin: 60px 0 50px;
+        font-weight: 800;
+        color: #0f172a;
+    }
+
+    .bolum-baslik::after {
+        content: '';
+        width: 70px;
+        height: 5px;
+        background: #3b82f6;
+        display: block;
+        margin: 15px auto;
+        border-radius: 10px;
+    }
+
+    /* 5. Baskı Türleri: Temiz Beyaz Kartlar, Mavi Detay */
+    .baski-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+    }
+
+    .baski-grup-kart {
+        background: rgba(255, 255, 255, 0.495);
+        /* Beyaz kart */
+        padding: 35px;
+        border-radius: 20px;
+        border: 1px solid #e2e8f0;
+        transition: 0.3s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    }
+
+    .baski-grup-kart:hover {
+        border-color: #1a1b1c;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    .baski-grup-kart h3 {
+        color: #000000;
+        font-size: 1.4em;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #eff6ff;
+        padding-bottom: 10px;
+    }
+
+    .baski-listesi {
+        list-style: none;
+        padding: 0;
+    }
+
+    .baski-listesi li {
+        padding: 8px 0;
+        color: #475569;
+        font-size: 0.95em;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .baski-listesi li strong {
+        color: #1e293b;
+    }
+
+    /* 6. Ürün Kartları: Beyaz & Mavi Buton */
+    .katalog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 40px;
+    }
+
+    .kart {
+        background: #ffffff;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+        transition: 0.3s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    }
+
+    .kart:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        border-color: #dbeafe;
+    }
+
+    .kart img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        transition: 0.5s;
+    }
+
+    .kart:hover img {
+        transform: scale(1.05);
+    }
+
+    .kart-icerik {
+        padding: 25px;
+    }
+
+    .kategori-etiket {
+        background: #eff6ff;
+        color: #3b82f6;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.75em;
+        font-weight: bold;
+    }
+
+    .incele-btn {
+        display: block;
+        text-align: center;
+        background: #3b82f6;
+        color: #fff;
+        padding: 12px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+        margin-top: 20px;
+        box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
+    }
+
+    .incele-btn:hover {
+        background: #2563eb;
+        transform: scale(1.02);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-wrapper">
+    <div class="hero">
+        <h1>AVŞAR EMPRİME</h1>
+        <p>Endüstriyel kapasite ve dijital hassasiyetle tekstile değer katıyoruz. Profesyonel baskı çözümleri.</p>
+
+        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+            <a href="#hizmetler" class="hero-btn"> Hizmetlerimiz</a>
+            <a href="{% url 'teklif_al' %}" class="hero-btn" style="background: #10b981;">Teklif Al</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 id="hizmetler" class="bolum-baslik">Hizmetlerimiz</h2>
+
+        <div class="baski-grid"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-bottom: 80px;">
+
+            <div class="baski-grup-kart">
+                <h3> Endüstriyel</h3>
+                <ul class="baski-listesi">
+                    <li><strong>Plastisol:</strong> Dayanıklı endüstriyel standart.</li>
+                    <li><strong>Su Bazlı:</strong> Ekolojik ve yumuşak tuşe.</li>
+                    <li><strong>Süblime:</strong> Kalıcı dijital transfer.</li>
+                </ul>
+            </div>
+
+            <div class="baski-grup-kart">
+                <h3> Efekt</h3>
+                <ul class="baski-listesi">
+                    <li><strong>Varak & Sim:</strong> Metalik ve parlak yüzeyler.</li>
+                    <li><strong>Puff:</strong> 3D kabaran hacimli baskılar.</li>
+                    <li><strong>Flok:</strong> Kadifemsi elit dokunuş.</li>
+                </ul>
+            </div>
+
+            <div class="baski-grup-kart">
+                <h3> Premium</h3>
+                <ul class="baski-listesi">
+                    <li><strong>Silikon:</strong> Kopmayan, lüks segment doku.</li>
+                    <li><strong>Yüksek Baskı:</strong> Keskin kenarlı 3D efektler.</li>
+                    <li><strong>Reflektör:</strong> Işıkla parlayan yüzeyler.</li>
+                </ul>
+            </div>
+
+            <div class="baski-grup-kart">
+                <h3> Özel İşçilik</h3>
+                <ul class="baski-listesi">
+                    <li><strong>3D Nakış:</strong> Yüksek vuruşlu işlemeler.</li>
+                    <li><strong>Devore:</strong> Şeffaflık yaratan özel süreç.</li>
+                    <li><strong>Mat & Parlak:</strong> Şık doku oyunları.</li>
+                </ul>
+            </div>
+
+            <div class="baski-grup-kart">
+                <h3> Ekolojik</h3>
+                <ul class="baski-listesi">
+                    <li><strong>GOTS Onaylı:</strong> Organik sertifikalı boyalar.</li>
+                    <li><strong>PVC Free:</strong> Kanserojen madde içermeyen üretim.</li>
+                    <li><strong>Recycled Print:</strong> Geri dönüştürülmüş materyal baskısı.</li>
+                </ul>
+            </div>
+
+            <div class="baski-grup-kart">
+                <h3> Ar-Ge & Tasarım</h3>
+                <ul class="baski-listesi">
+                    <li><strong>Numune Geliştirme:</strong> Hızlı varyant ve kalıp.</li>
+                    <li><strong>Renk Çalışması:</strong> %100 Pantone uyumu.</li>
+
+                </ul>
+            </div>
+
+        </div>
+        <h2 class="bolum-baslik">Son Çalışmalarımız</h2>
+        <div class="katalog-grid">
+            {% for urun in urunler %}
+            <div class="kart">
+                {% if urun.resim %}
+                <img src="{{ urun.resim.url }}" alt="{{ urun.baslik }}">
+                {% endif %}
+                <div class="kart-icerik">
+                    <span class="kategori-etiket">{{ urun.get_teknik_display }}</span>
+                    <h3 style="margin-top:15px; color: #0f172a; font-size: 1.1em;">{{ urun.baslik }}</h3>
+                    <p style="color: #64748b; font-size: 0.85em;">{{ urun.aciklama|truncatewords:6 }}</p>
+                    <a href="{% url 'urun_detay' urun.id %}" class="incele-btn">Üretimi İncele</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ urun.baslik }} | Avşar Emprime{% endblock %}
+
+{% block ekstra_css %}
+<style>
+    .detay-container {
+        max-width: 1000px;
+        margin: 50px auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        display: flex;
+        overflow: hidden;
+        flex-wrap: wrap;
+    }
+
+    .detay-sol {
+        flex: 1;
+        min-width: 300px;
+        background: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .detay-sol img {
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .detay-sag {
+        flex: 1;
+        min-width: 300px;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .kategori-badge {
+        display: inline-block;
+        padding: 8px 15px;
+        background: #e2e8f0;
+        color: #3b82f6;
+        font-weight: bold;
+        border-radius: 20px;
+        font-size: 0.9em;
+        margin-bottom: 20px;
+        align-self: flex-start;
+    }
+
+    .detay-baslik {
+        font-size: 2.5em;
+        color: #1e293b;
+        margin-bottom: 15px;
+        font-weight: 800;
+    }
+
+    .detay-fiyat {
+        font-size: 2em;
+        color: #ef4444;
+        font-weight: bold;
+        margin-bottom: 25px;
+    }
+
+    .detay-aciklama {
+        font-size: 1.1em;
+        color: #64748b;
+        line-height: 1.7;
+        margin-bottom: 30px;
+    }
+
+    .ozellik-listesi {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 40px;
+    }
+
+    .ozellik-listesi li {
+        margin-bottom: 10px;
+        font-size: 1.05em;
+        color: #334155;
+    }
+
+    .ozellik-listesi li strong {
+        color: #1e293b;
+    }
+
+    .teklif-buton {
+        display: block;
+        padding: 15px 30px;
+        background: #2c3e50;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .teklif-buton:hover {
+        background: #3b82f6;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+    }
+
+    .geri-don {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #64748b;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 0.9em;
+        transition: 0.3s;
+    }
+
+    .geri-don:hover {
+        color: #3b82f6;
+    }
+
+    @media (max-width: 768px) {
+        .detay-sag {
+            padding: 30px;
+        }
+
+        .detay-baslik {
+            font-size: 2em;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'vitrin' %}" class="geri-don">← Vitrine Geri Dön</a>
+
+    <div class="detay-container">
+
+        <div class="detay-sol">
+            {% if urun.resim %}
+            <img src="{{ urun.resim.url }}" alt="{{ urun.baslik }}">
+            {% else %}
+            <div style="text-align:center; color:#94a3b8; padding: 100px 0;">Görsel Bulunamadı</div>
+            {% endif %}
+        </div>
+
+        <div class="detay-sag">
+            <span class="kategori-badge">{{ urun.get_teknik_display }} | {{ urun.kategori.isim }}</span>
+            <h1 class="detay-baslik">{{ urun.baslik }}</h1>
+
+            {% if urun.fiyat %}
+            <div class="detay-fiyat">{{ urun.fiyat }} TL</div>
+            {% endif %}
+
+            <p class="detay-aciklama">{{ urun.aciklama }}</p>
+
+            <ul class="ozellik-listesi">
+                {% if urun.kumas_uygunlugu %}
+                <li>✅ <strong>Kumaş Uygunluğu:</strong> {{ urun.kumas_uygunlugu }}</li>
+                {% endif %}
+                {% if urun.kapasite_bilgisi %}
+                <li>⚙️ <strong>Kapasite:</strong> {{ urun.kapasite_bilgisi }}</li>
+                {% endif %}
+            </ul>
+
+            <a href="{% url 'teklif_al' %}?urun={{ urun.baslik }}" class="teklif-buton">🎨 Bu Ürün İçin Teklif Al</a>
+            <a href="https://wa.me/905454613379?text=Merhaba, Avşar Emprime web sitenizden yazıyorum. %0A%0AÜrün: *{{ urun.baslik }}* %0ATeknik: *{{ urun.get_teknik_display }}* %0A%0ABu ürün hakkında üretim ve fiyat bilgisi alabilir miyim?"
+                target="_blank"
+                style="display: inline-block; background-color: #25D366; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1.1em; margin-top: 15px; transition: 0.3s; box-shadow: 0 4px 6px rgba(37, 211, 102, 0.3);"
+                onmouseover="this.style.backgroundColor='#128C7E'" onmouseout="this.style.backgroundColor='#25D366'">
+                <span style="font-size: 1.2em; vertical-align: middle; margin-right: 8px;">💬</span> WhatsApp'tan Hızlı
+                Bilgi Al
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

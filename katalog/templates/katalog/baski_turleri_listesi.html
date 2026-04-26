@@ -1,0 +1,21 @@
+{% extends 'base.html' %} # Eğer ana şablonun varsa
+
+{% block content %}
+<h1>Baskı Türlerimiz</h1>
+
+<div class="row"> # Bootstrap gibi bir grid yapısı kullanabilirsin
+    {% for tur in turler %}
+    <div class="col-md-4">
+        <div class="card">
+            <img src="{{ tur.resim.url }}" alt="{{ tur.baslik }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ tur.baslik }}</h5>
+                {# İstersen açıklama alanı da ekleyebilirsin #}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Henüz baskı türü eklenmedi.</p>
+    {% endfor %}
+</div>
+{% endblock %}

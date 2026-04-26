@@ -1,0 +1,44 @@
+# Django Gereksizleri
+__pycache__/
+*.py[cod]
+*$py.class
+db.sqlite3
+
+# Özel Veriler (Sunucuya Gitmemeli)
+.env
+venv/
+env/
+
+# Medya ve Statik (Sunucuda kendisi oluşacak)
+media/
+staticfiles/
+
+# Sistem Dosyaları
+.DS_Store
+.vscode/
+
+
+# Python gereksizleri
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Sanal ortamlar (Localde kalsın)
+venv/
+env/
+.venv/
+
+# Veritabanları (Postgres kullanırken db.sqlite3 dosyasını da ekleyebilirsiniz)
+*.sqlite3
+
+# Gizli sunucu ayarları
+.env
+
+# Medya dosyaları (Bunlar sunucuda MEDIA klasöründe kendiliğinden oluşacak)
+# MEDIA_ROOT/ klasörünün kendisini değil, içindekileri temizler.
+# Eğer Media klasörünü de temizlemek isterseniz alta ekleyin.
+#media/
+#staticfiles/ # Vercel'de static klasörünü de temizlemek isterseniz ekleyin
+
+# Sistem dosyaları
+.DS_Store

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Sayfa Bulunamadı | Avşar Emprime{% endblock %}
+
+{% block content %}
+<div
+    style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; padding: 20px;">
+    <h1 style="font-size: 6em; color: #3b82f6; margin: 0; font-weight: 900;">404</h1>
+    <h2 style="font-size: 2em; color: #1e293b; margin-bottom: 20px;">Eyvah! Kaybolduk Sanırım.</h2>
+    <p style="font-size: 1.2em; color: #64748b; max-width: 500px; line-height: 1.6; margin-bottom: 30px;">
+        Aradığınız sayfayı bulamadık. Ya link hatalı ya da bu sayfa artık üretim hattımızda değil. Ama endişelenmeyin,
+        en iyi baskı ve nakış çözümleri bir tık uzağınızda.
+    </p>
+    <a href="{% url 'vitrin' %}"
+        style="padding: 15px 30px; background: #2c3e50; color: white; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 1.1em; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        🏠 Ana Sayfaya Geri Dön
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="kurumsal-container" style="max-width: 800px; margin: 50px auto; padding: 0 20px;">
+    <h1 style="color: #1e293b; border-bottom: 3px solid #3b82f6; padding-bottom: 15px; margin-bottom: 30px;">
+        {{ sayfa.baslik }}
+    </h1>
+    <div class="kurumsal-icerik" style="line-height: 1.8; color: #475569; font-size: 1.1em;">
+        {{ sayfa.icerik|linebreaks }}
+    </div>
+</div>
+{% endblock %}
