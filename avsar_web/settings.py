@@ -10,17 +10,14 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# --- GÜVENLİK AYARLARI (.env kasasından çekiliyor) ---
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = os.environ.get('DEBUG') == 'True'
+# --- GÜVENLİK AYARLARI ---
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-avsar-emprime-yedek-anahtar')
 
-# ALLOWED_HOSTS listesini ayarla
-env_hosts = os.environ.get('ALLOWED_HOSTS')
-if env_hosts:
-    ALLOWED_HOSTS = env_hosts.split(',')
-else:
-    ALLOWED_HOSTS = ['*']
+# Hatayı net görebilmek için geçici olarak True yaptık:
+DEBUG = True
 
+# Tüm kapıları Vercel'e sonuna kadar açıyoruz:
+ALLOWED_HOSTS = ['*', '.vercel.app', 'localhost', '127.0.0.1']
 # --- UYGULAMALAR ---
 INSTALLED_APPS = [
     'katalog',
