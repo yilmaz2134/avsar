@@ -62,22 +62,36 @@
 <div class="form-container">
     <h2>🚀 Üretim İçin Teklif Al</h2>
 
-    <form method="post" enctype="multipart/form-data" onsubmit="yukleniyorAnimasyonu()">
+<form method="post" enctype="multipart/form-data" onsubmit="yukleniyorAnimasyonu()">
         {% csrf_token %}
+        
         <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">Adınız Soyadınız:</p>
-        {{ form.ad_soyad }}
+        <input type="text" name="ad_soyad" class="form-input" placeholder="Adınızı ve soyadınızı girin" required>
+        
         <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">E-posta Adresiniz:</p>
-        {{ form.email }}
+        <input type="email" name="email" class="form-input" placeholder="ornek@firma.com" required>
+        
         <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">Telefon Numaranız:</p>
-        {{ form.telefon }}
+        <input type="tel" name="telefon" class="form-input" placeholder="05XX XXX XX XX" required>
+        
         <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">Ürün Türü:</p>
-        {{ form.urun_turu }}
+        <select name="urun_turu" class="form-input" required>
+            <option value="">Lütfen baskı tekniğini seçiniz...</option>
+            <option value="Plastisol Baskı">Plastisol Baskı</option>
+            <option value="Su Bazlı Baskı">Su Bazlı Baskı</option>
+            <option value="Kabartma / Gofre Baskı">Kabartma / Gofre Baskı</option>
+            <option value="Transfer Baskı">Transfer Baskı</option>
+            <option value="Diğer">Diğer</option>
+        </select>
+        
         <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">Tahmini Adet:</p>
-        {{ form.adet }}
+        <input type="number" name="adet" class="form-input" placeholder="Örn: 500" required>
+        
         <p style="font-weight: bold; color: #e74c3c; margin-bottom: 10px;">Tasarım Dosyası Yükle (Logo / Vektör):</p>
-        {{ form.tasarim }}
+        <input type="file" name="tasarim" class="form-input" style="padding: 10px;">
+        
         <p style="font-weight: bold; color: #34495e; margin-bottom: 10px;">Ek Notlar:</p>
-        {{ form.notlar }}
+        <textarea name="notlar" class="form-input" rows="4" placeholder="Eklemek istediğiniz detayları buraya yazabilirsiniz..."></textarea>
 
         <button type="submit" id="gonderBtn" class="submit-btn">Teklif Talebini Gönder</button>
     </form>
